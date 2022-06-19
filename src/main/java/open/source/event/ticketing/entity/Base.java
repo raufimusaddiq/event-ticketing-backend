@@ -36,16 +36,4 @@ public class Base implements Serializable {
   @LastModifiedDate
   @Column(name = "modified_date")
   private Date modifiedDate;
-
-  @CreatedBy
-  @Column(name = "created_by")
-  private String createdBy;
-
-  @LastModifiedBy
-  @Column(name = "modified_by")
-  private String modifiedBy;
-
-  @Version
-  @Column(name = "version")
-  private Integer version;
 }
