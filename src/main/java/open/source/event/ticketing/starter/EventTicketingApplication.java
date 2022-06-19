@@ -1,4 +1,4 @@
-package open.source.event.ticketing;
+package open.source.event.ticketing.starter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
