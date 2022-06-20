@@ -3,6 +3,161 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+  <property name="uuid_type" value="uuid" dbms="postgresql"/>
+  <property name="uuid_function" value="uuid_generate_v4()" dbms="postgresql"/>
 
-  <!--Add database migration in here-->
+  <changeSet author="raufi.musaddiq" id="s1-1.0.0-1">
+    <sql dbms="postgresql">
+      CREATE EXTENSION IF NOT EXISTS "uuid-ossp"
+    </sql>
+    <rollback>
+      <sql dbms="postgresql">
+        DROP EXTENSION "uuid-ossp"
+      </sql>
+    </rollback>
+  </changeSet>
+
+  <changeSet id="s1-1.0.0-2" author="raufi.musaddiq">
+    <createTable tableName="user">
+      <column name="id" type="${uuid_type}" defaultValueComputed="${uuid_function}" >
+        <constraints primaryKey="true" nullable="false" unique="true"/>
+      </column>
+      <column name="name" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="email" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="phone_number" type="varchar(15)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="password" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="verified" type="boolean"/>
+      <column name="event_organizer_id" type="varchar(255)"/>
+      <column name="created_date" type="dateTime" defaultValueDate="CURRENT_TIMESTAMP">
+        <constraints nullable="false"/>
+      </column>
+      <column name="modified_date" type="dateTime" defaultValueDate="CURRENT_TIMESTAMP"/>
+    </createTable>
+
+    <createTable tableName="event_organizer">
+      <column name="id" type="${uuid_type}" defaultValueComputed="${uuid_function}" >
+        <constraints primaryKey="true" nullable="false" unique="true"/>
+      </column>
+      <column name="user_id" type="varchar(255)">
+        <constraints nullable="false"
+        foreignKeyName="fk_event_organizer_user_id" referencedColumnNames="user(id)"/>
+      </column>
+      <column name="organization" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_date" type="dateTime" defaultValueDate="CURRENT_TIMESTAMP">
+        <constraints nullable="false"/>
+      </column>
+      <column name="modified_date" type="dateTime" defaultValueDate="CURRENT_TIMESTAMP"/>
+    </createTable>
+
+    <createTable tableName="event">
+      <column name="id" type="${uuid_type}" defaultValueComputed="${uuid_function}" >
+        <constraints primaryKey="true" nullable="false" unique="true"/>
+      </column>
+      <column name="event_organizer_id" type="varchar(255)">
+        <constraints nullable="false"
+        foreignKeyName="fk_event_event_organizer_id" referencedColumnNames="event_organizer(id)"/>
+      </column>
+      <column name="name" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="total_day" type="number">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_date" type="dateTime" defaultValueDate="CURRENT_TIMESTAMP">
+        <constraints nullable="false"/>
+      </column>
+      <column name="modified_date" type="dateTime" defaultValueDate="CURRENT_TIMESTAMP"/>
+    </createTable>
+    
+    <createTable tableName="event_ticket">
+      <column name="id" type="${uuid_type}" defaultValueComputed="${uuid_function}" >
+        <constraints primaryKey="true" nullable="false" unique="true"/>
+      </column>
+      <column name="event_id" type="varchar(255)">
+        <constraints nullable="false"
+        foreignKeyName="fk_event_ticket_event_id" referencedColumnNames="event(id)"/>
+      </column>
+      <column name="start_time" type="dateTime">
+        <constraints nullable="false"/>
+      </column>
+      <column name="end_time" type="dateTime">
+        <constraints nullable="false"/>
+      </column>
+      <column name="quota" type="number">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_date" type="dateTime" defaultValueDate="CURRENT_TIMESTAMP">
+        <constraints nullable="false"/>
+      </column>
+      <column name="modified_date" type="dateTime" defaultValueDate="CURRENT_TIMESTAMP"/>
+    </createTable>
+
+    <createTable tableName="event_registration">
+      <column name="id" type="${uuid_type}" defaultValueComputed="${uuid_function}" >
+        <constraints primaryKey="true" nullable="false" unique="true"/>
+      </column>
+      <column name="event_ticket_id" type="varchar(255)">
+        <constraints nullable="false"
+        foreignKeyName="fk_event_registration_event_ticket_id" referencedColumnNames="event_ticket(id)"/>
+      </column>
+      <column name="user_id" type="varchar(255)">
+        <constraints nullable="false"
+        foreignKeyName="fk_event_registration_user_id" referencedColumnNames="user(id)"/>
+      </column>
+      <column name="status" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_date" type="dateTime" defaultValueDate="CURRENT_TIMESTAMP">
+        <constraints nullable="false"/>
+      </column>
+      <column name="modified_date" type="dateTime" defaultValueDate="CURRENT_TIMESTAMP"/>
+    </createTable>
+    
+    <createTable tableName="attendee">
+      <column name="id" type="${uuid_type}" defaultValueComputed="${uuid_function}" >
+        <constraints primaryKey="true" nullable="false" unique="true"/>
+      </column>
+      <column name="event_registration_id" type="varchar(255)">
+        <constraints nullable="false"
+        foreignKeyName="fk_attendee_event_registration_id" referencedColumnNames="event_registration(id)"/>
+      </column>
+      <column name="user-id" type="varchar(255)">
+        <constraints nullable="false"
+        foreignKeyName="fk_attendee_user_id" referencedColumnNames="user(id)"/>
+      </column>
+      <column name="event_ticket_id" type="varchar(255)">
+        <constraints nullable="false"
+        foreignKeyName="fk_attendee_event_ticket_id" referencedColumnNames="event_ticket(id)"/>
+      </column>
+      <column name="status" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="qr" type="text"/>
+      <column name="created_date" type="dateTime" defaultValueDate="CURRENT_TIMESTAMP">
+        <constraints nullable="false"/>
+      </column>
+      <column name="modified_date" type="dateTime" defaultValueDate="CURRENT_TIMESTAMP"/>
+    </createTable>
+
+    <rollback>
+      <dropTable tableName="attendee"/>
+      <dropTable tableName="event_registration"/>
+      <dropTable tableName="event_ticket"/>
+      <dropTable tableName="event"/>
+      <dropTable tableName="event_organizer"/>
+      <dropTable tableName="user"/>
+    </rollback>
+  </changeSet>
+
+
 </databaseChangeLog>

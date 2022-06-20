@@ -6,12 +6,9 @@ import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Version;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 /**

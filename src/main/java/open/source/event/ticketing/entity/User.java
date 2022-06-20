@@ -18,6 +18,9 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class User extends Base{
+  @Column(name = "name")
+  private String name;
+
   @Column(name = "email")
   private String email;
 
@@ -29,4 +32,7 @@ public class User extends Base{
 
   @Column(name = "verified")
   private boolean verified;
+
+  @Column(name = "event_organizer_id")
+  private String eventOrganizerId;
 }
