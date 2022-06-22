@@ -26,4 +26,10 @@ public class Event extends Base{
   @Column(name = "total_day")
   private Integer totalDay;
 
+  @Column(name = "description")
+  private String description;
+
+  @Column(name = "location")
+  private String location;
+
 }
