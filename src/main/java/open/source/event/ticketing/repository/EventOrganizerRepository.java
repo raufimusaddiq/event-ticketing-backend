@@ -10,6 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author musaddiqr
  * @version EventOrganizer.java, v 0.1 20 June 2022 21.16:15 raufi-musaddiq Exp $$
  */
-public interface EventOrganizerRepository extends JpaRepository<UUID, EventOrganizer> {
+public interface EventOrganizerRepository extends JpaRepository<EventOrganizer, UUID> {
 
 }
