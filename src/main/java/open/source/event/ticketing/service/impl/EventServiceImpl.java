@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -28,6 +29,9 @@ public class EventServiceImpl implements EventService {
         Event event = eventMapper.toEntity(request);
         UUID uuid = UUID.randomUUID();
         event.setId(uuid);
+        Date date = new Date();
+        event.setCreatedDate(date);
+        event.setModifiedDate(date);
         Event savedEvent = eventRepository.save(event);
         return eventMapper.toDto(savedEvent);
     }
