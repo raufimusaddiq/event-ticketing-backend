@@ -1,7 +1,9 @@
 package open.source.event.ticketing.rest.request;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Data
 public class CreateEventRequest {
 
