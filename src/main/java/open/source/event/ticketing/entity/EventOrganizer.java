@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
  */
 
 @Entity
-@Table(name = "event_organizer")
+@Table(name = "event_organizer", schema = "public")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class EventOrganizer extends Base{

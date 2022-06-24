@@ -10,6 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author musaddiqr
  * @version EventTicketRepository.java, v 0.1 20 June 2022 21.22:03 raufi-musaddiq Exp $$
  */
-public interface EventTicketRepository extends JpaRepository<UUID, EventTicket> {
+public interface EventTicketRepository extends JpaRepository<EventTicket, UUID> {
 
 }
