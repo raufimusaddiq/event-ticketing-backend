@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
  */
 
 @Entity
-@Table(name = "event_ticket")
+@Table(name = "event_ticket", schema = "public")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class EventTicket extends Base {

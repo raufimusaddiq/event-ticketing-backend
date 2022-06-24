@@ -10,6 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author musaddiqr
  * @version EventRegistrationRepository.java, v 0.1 20 June 2022 21.19:17 raufi-musaddiq Exp $$
  */
-public interface EventRegistrationRepository extends JpaRepository<UUID, EventRegistration> {
+public interface EventRegistrationRepository extends JpaRepository<EventRegistration, UUID> {
 
 }

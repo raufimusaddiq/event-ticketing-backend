@@ -15,7 +15,7 @@ import open.source.event.ticketing.enumeration.RegisterStatus;
  */
 
 @Entity
-@Table(name = "event_registration")
+@Table(name = "event_registration", schema = "public")
 public class EventRegistration extends Base {
 
   @Column(name = "event_ticket_id")
