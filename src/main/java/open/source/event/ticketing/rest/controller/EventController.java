@@ -25,7 +25,6 @@ public class EventController {
         EventDetailResponse eventDetailResponse = eventService.createEvent(request);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .header(HttpHeaders.LOCATION, "/api/event/"+ eventDetailResponse.getId())
                 .body(BaseWebResponse.successWithData(eventDetailResponse));
     }
 }
