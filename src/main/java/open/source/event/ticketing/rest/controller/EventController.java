@@ -26,6 +26,6 @@ public class EventController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .header(HttpHeaders.LOCATION, "/api/event/"+ eventDetailResponse.getId())
-                .body(BaseWebResponse.successNoData());
+                .body(BaseWebResponse.successWithData(eventDetailResponse));
     }
 }
