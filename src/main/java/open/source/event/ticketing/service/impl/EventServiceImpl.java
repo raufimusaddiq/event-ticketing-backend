@@ -1,23 +1,20 @@
 package open.source.event.ticketing.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import open.source.event.ticketing.entity.Event;
 import open.source.event.ticketing.mapper.EventMapper;
 import open.source.event.ticketing.repository.EventRepository;
 import open.source.event.ticketing.rest.request.CreateEventRequest;
-import open.source.event.ticketing.rest.response.EventDTO;
+import open.source.event.ticketing.rest.response.EventDetailResponse;
 import open.source.event.ticketing.service.EventService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.UUID;
-
 @Service
+@Slf4j
 public class EventServiceImpl implements EventService {
-
-    private static Logger logger = LoggerFactory.getLogger(EventServiceImpl.class);
     @Autowired
     private EventRepository eventRepository;
 
@@ -25,13 +22,8 @@ public class EventServiceImpl implements EventService {
     private EventMapper eventMapper;
 
     @Override
-    public EventDTO createEvent(CreateEventRequest request) {
+    public EventDetailResponse createEvent(CreateEventRequest request) {
         Event event = eventMapper.toEntity(request);
-        UUID uuid = UUID.randomUUID();
-        event.setId(uuid);
-        Date date = new Date();
-        event.setCreatedDate(date);
-        event.setModifiedDate(date);
         Event savedEvent = eventRepository.save(event);
         return eventMapper.toDto(savedEvent);
     }

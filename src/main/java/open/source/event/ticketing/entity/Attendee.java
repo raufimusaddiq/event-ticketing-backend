@@ -31,6 +31,7 @@ public class Attendee extends Base {
   @Column(name = "event_ticket_id")
   private String eventTicketId;
 
+  @Enumerated(EnumType.STRING)
   @Column(name = "status")
   private AttendeeStatus status;
 
