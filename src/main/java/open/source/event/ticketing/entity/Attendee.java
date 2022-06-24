@@ -7,6 +7,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import open.source.event.ticketing.enumeration.AttendeeStatus;
 
 /**
  * entity that handle event attendee
@@ -31,7 +32,7 @@ public class Attendee extends Base {
   private String eventTicketId;
 
   @Column(name = "status")
-  private String status;
+  private AttendeeStatus status;
 
   @Column(name = "qr")
   private String qr;

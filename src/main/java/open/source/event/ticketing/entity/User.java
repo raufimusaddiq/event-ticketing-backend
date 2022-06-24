@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
  */
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", schema = "public")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class User extends Base{
